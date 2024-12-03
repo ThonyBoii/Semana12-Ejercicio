@@ -21,4 +21,5 @@ public class GameController : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 10, 0), Quaternion.identity);
         }
     }
+
 }

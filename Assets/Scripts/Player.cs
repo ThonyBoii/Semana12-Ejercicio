@@ -17,7 +17,7 @@ public class Player : MonoBehaviourPun
     private int score = 0; 
     private const int winScore = 5;
 
-    public static GameObject LocalInstance { get { return localInstance;  } }
+    public static GameObject LocalInstance { get { return localInstance; } }
 
     private void Awake()
     {
