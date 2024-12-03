@@ -55,6 +55,9 @@ public class Player : MonoBehaviourPun
 
     void Move()
     {
+        if (!photonView.IsMine)
+            return; 
+
         float rotationInput = Input.GetAxisRaw("Horizontal"); 
         float movementInput = Input.GetAxisRaw("Vertical"); 
 
