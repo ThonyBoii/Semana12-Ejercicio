@@ -29,6 +29,13 @@ public class Player : MonoBehaviourPun
         }
         DontDestroyOnLoad(gameObject);
         rb = GetComponent<Rigidbody>();
+
+        scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: 0"; 
+        }
     }
 
     [PunRPC]
@@ -48,23 +55,23 @@ public class Player : MonoBehaviourPun
 
     void Move()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float rotationInput = Input.GetAxisRaw("Horizontal"); 
+        float movementInput = Input.GetAxisRaw("Vertical"); 
 
-        rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
+        
+        transform.Rotate(0, rotationInput * speed * Time.deltaTime, 0);
 
-        if(horizontal!=0|| vertical != 0)
-        {
-            transform.forward = new Vector3(horizontal, 0, vertical);
-        }
+        
+        Vector3 movement = transform.forward * movementInput * speed * Time.deltaTime;
+        rb.MovePosition(rb.position + movement);
 
     }
 
     public void AddScore(int amount)
     {
-        score += amount;
-        UpdateScoreUI();
-        CheckWinCondition();
+        score += amount; 
+        UpdateScoreUI(); 
+        CheckWinCondition(); 
     }
 
     private void UpdateScoreUI()
@@ -79,7 +86,7 @@ public class Player : MonoBehaviourPun
     {
         if (score >= winScore)
         {
-            photonView.RPC("LoadVictoryScene", RpcTarget.All); // Sincronizar escena para todos los jugadores
+            photonView.RPC("LoadVictoryScene", RpcTarget.All); 
         }
     }
 
