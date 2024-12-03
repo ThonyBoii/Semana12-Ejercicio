@@ -27,6 +27,11 @@ public class Player : MonoBehaviourPun
             photonView.RPC("SetName", RpcTarget.AllBuffered, GameData.playerName);
             localInstance = gameObject;
         }
+        else
+        {
+            photonView.RPC("SetName", RpcTarget.AllBuffered, GameData.playerName);  // Asegura que otros jugadores reciban el nombre
+        }
+
         DontDestroyOnLoad(gameObject);
         rb = GetComponent<Rigidbody>();
 
@@ -55,8 +60,6 @@ public class Player : MonoBehaviourPun
 
     void Move()
     {
-        if (!photonView.IsMine)
-            return; 
 
         float rotationInput = Input.GetAxisRaw("Horizontal"); 
         float movementInput = Input.GetAxisRaw("Vertical"); 
