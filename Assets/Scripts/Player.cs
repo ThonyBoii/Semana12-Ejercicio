@@ -46,7 +46,7 @@ public class Player : MonoBehaviourPun
     [PunRPC]
     private void SetName(string playerName)
     {
-        playerNameText.text = GameData.playerName;
+        playerNameText.text = playerName;
     }
 
     void Update()
